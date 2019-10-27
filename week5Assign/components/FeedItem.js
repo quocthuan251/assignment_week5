@@ -12,11 +12,14 @@ export default class FeedItem extends Component {
         Linking.openURL(url).catch((err) => console.error('An error occurred', err));
     };
     render() {
-        const { item: { title, urlToImage } } = this.props;
-        return (
+        const { item: { title, urlToImage, content, publishedAt,source:{name} } } = this.props;
+       return (
             <View style={styles.card}>
+                <Text  style={styles.title}> {title}</Text>
                 <Image source={{ uri: urlToImage }} style={styles.image} />
-                <Text> {title}</Text>
+                <Text><Text style={styles.content}>Source: </Text><Text style={styles.date}>{name}</Text></Text>
+                <Text><Text style={styles.content}>Content: </Text>{content}</Text>
+                <Text><Text style={styles.content}>PublishedAt: </Text ><Text style={styles.date}>{publishedAt}</Text></Text>
                 <TouchableOpacity style={styles.button} onPress={this.onPressReadMore}>
                     <Text style ={styles.textButton}>Read More</Text>
                 </TouchableOpacity>
@@ -29,14 +32,18 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         paddingHorizontal: 15,
         paddingVertical: 10,
+        borderColor: '#999999',
+        borderWidth: 1,
+        marginTop: 10,
     },
     image: {
-        width: 320,
+        width: 300,
         height: 200,
     },
     button: {
-        backgroundColor: 'blue',
-        paddingHorizontal: 18,
+        backgroundColor: '#FF9900',
+        paddingHorizontal: 28,
+        height:25,
         justifyContent:'center',
         alignItems:'center',
         borderRadius:5,
@@ -44,5 +51,19 @@ const styles = StyleSheet.create({
     textButton:{
         color:'white',
         fontSize:20,
+        fontWeight:"bold",
+    },
+    title:{
+        justifyContent:'center',
+        alignItems:'center',
+        fontSize:20,
+    fontWeight:"bold",
+    marginBottom: 15,
+    },
+    content:{
+        fontWeight:"bold",
+    },
+    date:{
+        color: '#33CC33',
     }
 })
