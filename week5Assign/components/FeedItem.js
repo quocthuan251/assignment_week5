@@ -1,0 +1,48 @@
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Linking } from 'react-native';
+
+export default class FeedItem extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    onPressReadMore = () => {
+        const { item: { url } } = this.props;
+        Linking.openURL(url).catch((err) => console.error('An error occurred', err));
+    };
+    render() {
+        const { item: { title, urlToImage } } = this.props;
+        return (
+            <View style={styles.card}>
+                <Image source={{ uri: urlToImage }} style={styles.image} />
+                <Text> {title}</Text>
+                <TouchableOpacity style={styles.button} onPress={this.onPressReadMore}>
+                    <Text style ={styles.textButton}>Read More</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    }
+}
+const styles = StyleSheet.create({
+    card: {
+        flexDirection: 'column',
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+    },
+    image: {
+        width: 320,
+        height: 200,
+    },
+    button: {
+        backgroundColor: 'blue',
+        paddingHorizontal: 18,
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius:5,
+    },
+    textButton:{
+        color:'white',
+        fontSize:20,
+    }
+})
